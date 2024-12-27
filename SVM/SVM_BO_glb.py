@@ -35,16 +35,11 @@ y = df_no_ID['status']
 
 df_no_Pheno = df_no_ID.drop('status', axis = 1)
 
-cont_var = ["age", "standing_height", "right_hand_grip_strength",
-            "number_in_household", "cystatin_c",
-            "glycated_haemoglobin_HbA1c", "IGF1",
-            "systolic_blood_pressure_AutomatedReading", "weighted"]
+cont_var = [] # continuous features
     
-cat_var = ["qualifications", "ownORrent_accomodation_lived",
-           "leisure_social_activities", "current_employment_status",
-           "weekly_usage_of_mobile_phone_in_last_3_months"]
+cat_var = [] # categorical features
 
-other_var = ['sex']
+other_var = [] # binary features
     
 df_cat_var = df_no_Pheno.drop(cont_var, axis = 1)
 df_cat_var = df_cat_var.drop(other_var, axis = 1)
@@ -68,35 +63,9 @@ new_df_cat_var = pd.DataFrame(cat_var_encoded, columns = new_cat_var_names)
 # Create a df with normalize variables and cat variables 
 new_df = np.concatenate((df_cont_var, df_other_var), axis=1)
 new_df_1 = np.concatenate((new_df, new_df_cat_var), axis=1)
-new_col_names = ["age", "standing_height", "right_hand_grip_strength",
-               "number_in_household", "cystatin_c",
-               "glycated_haemoglobin_HbA1c", "IGF1",
-               "systolic_blood_pressure_AutomatedReading", "weighted", "sex",
-               "qualifications_0.0", "qualifications_1.0", "qualifications_2.0",
-               "qualifications_3.0", "qualifications_4.0", "qualifications_5.0", 
-               "qualifications_6.0", "ownORrent_accomodation_lived_1.0", 
-               "ownORrent_accomodation_lived_2.0",
-               "ownORrent_accomodation_lived_3.0", 
-               "ownORrent_accomodation_lived_4.0", 
-               "ownORrent_accomodation_lived_5.0", 
-               "ownORrent_accomodation_lived_6.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_-1.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_0.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_1.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_2.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_3.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_4.0", 
-               "weekly_usage_of_mobile_phone_in_last_3_months_5.0", 
-               "leisure_social_activities_0.0", "leisure_social_activities_1.0", 
-               "leisure_social_activities_2.0", "leisure_social_activities_3.0", 
-               "leisure_social_activities_4.0", "leisure_social_activities_5.0",
-               "current_employment_status_1.0", "current_employment_status_2.0",
-               "current_employment_status_3.0", "current_employment_status_4.0",
-               "current_employment_status_5.0", "current_employment_status_6.0",
-               "current_employment_status_7.0", "current_employment_status_8.0"]
+new_col_names = [] # names of continuous, binary and categorical (for each category) feature
 
 X = pd.DataFrame(data=new_df_1, columns=new_col_names)
-
 
 '''2: Bayesian Optimization'''
 # Undersampling dataset 
